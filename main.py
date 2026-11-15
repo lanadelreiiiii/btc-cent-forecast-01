@@ -28,7 +28,8 @@ p05 case is the cautionary one: the model bets on a bounce that never comes
 (forecast 73837.06 vs true 73522.10), which is exactly why the shrinkage exists.
 Re-verified after this rewrite: running this file on the 6 practice inputs
 reproduces the same forecasts and the same 30,145-cent MAE, so the rewrite
-changed documentation and structure only, not the model.
+changed documentation and structure only, not the model. This repository was
+created after the competition opened (15 Nov 2026), per repo_created_after_open.
 
 Pure standard library, deterministic, no network. Fits a 5x5 system per case:
 fast (<0.1s per case).
