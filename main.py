@@ -130,6 +130,35 @@ def forecast(prices, shrink=SHRINK):
     return price5(last * math.exp(pred_ret))
 
 
+def verify(input_dir):
+    """Local reproducibility check (never run by the grader): replay the
+    practice cases and print the shrinkage sweep table (model vs
+    persistence MAE in cents). Truth is the next case's final price; the
+    last case uses the Kraken BTC/USD 06:00-candle close 73522.10 as a
+    proxy (see the module docstring). Usage:
+    python3 main.py --verify <input dir>"""
+    cases = {}
+    for fname in sorted(os.listdir(input_dir)):
+        if not fname.endswith(".in"):
+            continue
+        with open(os.path.join(input_dir, fname), encoding="utf-8") as f:
+            case = json.load(f)
+        cases[case["case"]] = case["markets"][0]["prices"]
+    order = sorted(cases)
+    truth = {cid: (cases[order[i + 1]][-1] if i < len(order) - 1 else 73522.10)
+             for i, cid in enumerate(order)}
+    for shrink in (0.5, 0.6, 0.7, 0.8, 0.9, 1.0):
+        errs, perrs = [], []
+        for cid in order:
+            guess = forecast(cases[cid], shrink=shrink)
+            errs.append(abs(guess - truth[cid]) * 100)
+            perrs.append(abs(cases[cid][-1] - truth[cid]) * 100)
+        model = sum(errs) / len(errs)
+        pers = sum(perrs) / len(perrs)
+        print(f"shrink={shrink}: model={model:,.0f} persistence={pers:,.0f} "
+              f"improvement={(pers - model) / pers * 100:.1f}%")
+
+
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     inputs = sorted(f for f in os.listdir(INPUT_DIR) if f.endswith(".in"))
@@ -150,4 +179,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) > 1 and sys.argv[1] == "--verify":
+        verify(sys.argv[2] if len(sys.argv) > 2 else INPUT_DIR)
+    else:
+        main()
