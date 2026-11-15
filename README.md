@@ -1,5 +1,9 @@
 # BTC Cent Forecast
 
+[![make.fun · btc-cent-forecast-01](https://make.fun/badge/btc-cent-forecast-01.svg)](https://make.fun/bounty/btc-cent-forecast-01?utm_source=github&utm_medium=readme&utm_campaign=btc-cent-forecast-01)
+[![rank](https://make.fun/badge/btc-cent-forecast-01/lanadelreiiiii/btc-cent-forecast-01/rank.svg)](https://make.fun/bounty/btc-cent-forecast-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=btc-cent-forecast-01)
+[![reward](https://make.fun/badge/btc-cent-forecast-01/lanadelreiiiii/btc-cent-forecast-01/reward.svg)](https://make.fun/bounty/btc-cent-forecast-01?utm_source=github&utm_medium=readme&utm_campaign=btc-cent-forecast-01)
+
 Entry for make.fun `btc-cent-forecast-01`: forecast Bitcoin's USD price
 4 hours ahead, 12 times over 48 hours. Scored by mean absolute error in
 cents — lower is better — against a persistence baseline (guess the last
